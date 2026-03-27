@@ -1,6 +1,6 @@
 {
   "name": "Notas",
-  "short_name": "Notas",
+  "short_name": "Horarios",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
