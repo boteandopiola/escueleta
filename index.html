@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ffffff">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Horarios Miriam</title>
+  <style>
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin-top: 80px;       /* más separación superior */
+  background-color: #2b2b2b; /* fondo gris oscuro */
+  color: white;            /* texto claro */
+  font-size: 22px;         /* texto más grande */
+}
+
+button {
+  margin: 10px;            /* más espacio entre botones */
+  padding: 15px 25px;      /* botones más grandes */
+  font-size: 20px;         /* texto de botón más grande */
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: #444;  /* gris oscuro para botones */
+  color: white;
+  border-radius: 6px;      /* bordes redondeados */
+}
+
+.activo {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+#resultado {
+  margin-top: 30px;
+  font-size: 24px;         /* más grande */
+  font-weight: bold;
+  white-space: pre-line;
+}
+  </style>
+</head>
+<body>
+
+  <h2>¿Dónde anda la infeliz?</h2>
+
+  <button id="lunes" onclick="mostrarDato('lunes', this)">Lunes</button>
+  <button id="martes" onclick="mostrarDato('martes', this)">Martes</button><br>
+  <button id="miercoles" onclick="mostrarDato('miercoles', this)">Miércoles</button>
+  <button id="jueves" onclick="mostrarDato('jueves', this)">Jueves</button><br>
+  <button id="viernes" onclick="mostrarDato('viernes', this)">Viernes</button>
+  
+  
+<div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 20px;">
+  <span style="
+    font-family: 'Courier New', Courier, monospace; 
+    font-size: 32px; 
+    color: #0f0;
+    text-shadow: 0 0 2px #0f0, 0 0 4px #0f0;">
+    Hora actual:
+  </span>
+  <div id="reloj" style="
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 32px; 
+    color: #0f0; 
+    text-shadow: 0 0 2px #0f0, 0 0 4px #0f0;">
+    --:-- 
+  </div>
+</div>
+  <div id="resultado"></div>
+
+  <script>
+    function mostrarDato(dia, boton) {
+      let dato = "";
+
+      const botones = document.querySelectorAll("button");
+      botones.forEach(btn => btn.classList.remove("activo"));
+
+      boton.classList.add("activo");
+
+      switch(dia) {
+        case "lunes":
+          dato = "Horarios  &  Colegios:\n\n09:40 a 11:50   ► N°9\n16:00 a 17:00   ► N°6\n17:30 a 18:30   ► N°1\n19:30 a 21:20   ► N°6";
+          break;
+        case "martes":
+          dato = "Horarios  &  Colegios:\n\n17:30 a 18:30   ► N°1\n19:20 a 20:20   ► N°6\n20:25 a 22:15   ► N°6";
+          break;
+        case "miercoles":
+          dato = "Horarios  &  Colegios:\n\n13:00 a 15:00   ► N°53\n15:10 a 17:30   ► N°1\n19:30 a 21:20   ► N°6";
+          break;
+        case "jueves":
+          dato = "Horarios  &  Colegios:\n\n13:00 a 15:00   ► N°53\n15:10 a 16:10   ► N°18\n17:30 a 19:30   ► N°6\n19:30 a 21:20   ► N°6";
+          break;
+        case "viernes":
+          dato = "Horarios  &  Colegios:\n\n10:00 a 11:00   ► N°6\n11:50 a 12:45   ► N°9\n13:00 a 15:00   ► N°18\n18:15 a 19:15   ► N°6\n19:30 a 21:20   ► N°6";
+          break;
+      }
+
+      document.getElementById("resultado").textContent = dato;
+    }
+
+    // Ajustar ancho de todos los botones al más largo
+    const botones = document.querySelectorAll("button");
+    let maxWidth = 0;
+    botones.forEach(btn => {
+      if (btn.offsetWidth > maxWidth) {
+        maxWidth = btn.offsetWidth;
+      }
+    });
+    botones.forEach(btn => btn.style.width = maxWidth + "px");
+	
+	// Detectar día actual automáticamente
+    window.onload = function() {
+      const dias = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
+      const hoy = new Date().getDay();
+      const diaActual = dias[hoy];
+
+      // Solo si es lunes a viernes
+      if (diaActual !== "sabado" && diaActual !== "domingo") {
+        const boton = document.getElementById(diaActual);
+        mostrarDato(diaActual, boton);
+      }
+    };
+  </script>
+<script>
+function actualizarReloj() {
+  const reloj = document.getElementById('reloj');
+  const now = new Date();
+  const horas = String(now.getHours()).padStart(2, '0');
+  const minutos = String(now.getMinutes()).padStart(2, '0');
+  reloj.textContent = `${horas}:${minutos}`;
+}
+
+// Actualizar cada segundo
+setInterval(actualizarReloj, 1000);
+actualizarReloj(); // actualización inmediata al cargar
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js');
+}
+</script>
+</body>
+</html>
