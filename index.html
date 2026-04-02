@@ -3,127 +3,158 @@
 <head>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ffffff">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Horarios Miriam</title>
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Horarios Miriam</title>
+
+<style>
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  margin-top: 80px;       /* más separación superior */
-  background-color: #2b2b2b; /* fondo gris oscuro */
-  color: white;            /* texto claro */
-  font-size: 22px;         /* texto más grande */
+  margin-top: 80px;
+  background-color: #2b2b2b;
+  color: white;
+  font-size: 22px;
 }
 
 button {
-  margin: 10px;            /* más espacio entre botones */
-  padding: 15px 25px;      /* botones más grandes */
-  font-size: 20px;         /* texto de botón más grande */
+  margin: 10px;
+  padding: 15px 25px;
+  font-size: 20px;
   cursor: pointer;
   border: 1px solid #ccc;
-  background-color: #444;  /* gris oscuro para botones */
+  background-color: #444;
   color: white;
-  border-radius: 6px;      /* bordes redondeados */
+  border-radius: 6px;
 }
 
 .activo {
   background-color: #4CAF50;
-  color: white;
   border: 1px solid #4CAF50;
+}
+
+/* 🔥 NUEVO: resaltado horario actual */
+.hora-actual {
+  background-color: #4CAF50;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 #resultado {
   margin-top: 30px;
-  font-size: 24px;         /* más grande */
+  font-size: 24px;
   font-weight: bold;
-  white-space: pre-line;
 }
-  </style>
+</style>
 </head>
+
 <body>
 
-  <h2>¿Dónde anda la infeliz?</h2>
+<h2>¿Dónde anda la infeliz?</h2>
 
-  <button id="lunes" onclick="mostrarDato('lunes', this)">Lunes</button>
-  <button id="martes" onclick="mostrarDato('martes', this)">Martes</button><br>
-  <button id="miercoles" onclick="mostrarDato('miercoles', this)">Miércoles</button>
-  <button id="jueves" onclick="mostrarDato('jueves', this)">Jueves</button><br>
-  <button id="viernes" onclick="mostrarDato('viernes', this)">Viernes</button>
-  
-  
+<button id="lunes" onclick="mostrarDato('lunes', this)">Lunes</button>
+<button id="martes" onclick="mostrarDato('martes', this)">Martes</button><br>
+<button id="miercoles" onclick="mostrarDato('miercoles', this)">Miércoles</button>
+<button id="jueves" onclick="mostrarDato('jueves', this)">Jueves</button><br>
+<button id="viernes" onclick="mostrarDato('viernes', this)">Viernes</button>
+
 <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 20px;">
-  <span style="
-    font-family: 'Courier New', Courier, monospace; 
-    font-size: 32px; 
-    color: #0f0;
-    text-shadow: 0 0 2px #0f0, 0 0 4px #0f0;">
+  <span style="font-family: 'Courier New'; font-size: 32px; color: #0f0;">
     Hora actual:
   </span>
-  <div id="reloj" style="
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 32px; 
-    color: #0f0; 
-    text-shadow: 0 0 2px #0f0, 0 0 4px #0f0;">
-    --:-- 
+  <div id="reloj" style="font-family: 'Courier New'; font-size: 32px; color: #0f0;">
+    --:--
   </div>
 </div>
-  <div id="resultado"></div>
 
-  <script>
-    function mostrarDato(dia, boton) {
-      let dato = "";
+<div id="resultado"></div>
 
-      const botones = document.querySelectorAll("button");
-      botones.forEach(btn => btn.classList.remove("activo"));
-
-      boton.classList.add("activo");
-
-      switch(dia) {
-        case "lunes":
-          dato = "Horarios  &  Colegios:\n\n09:40 a 11:50   ► N°9\n16:00 a 17:00   ► N°6\n17:30 a 18:30   ► N°1\n19:30 a 21:20   ► N°6";
-          break;
-        case "martes":
-          dato = "Horarios  &  Colegios:\n\n17:30 a 18:30   ► N°1\n19:20 a 20:20   ► N°6\n20:25 a 22:15   ► N°6";
-          break;
-        case "miercoles":
-          dato = "Horarios  &  Colegios:\n\n13:00 a 15:00   ► N°53\n15:10 a 17:30   ► N°1\n19:30 a 21:20   ► N°6";
-          break;
-        case "jueves":
-          dato = "Horarios  &  Colegios:\n\n13:00 a 15:00   ► N°53\n15:10 a 16:10   ► N°18\n17:30 a 19:30   ► N°6\n19:30 a 21:20   ► N°6";
-          break;
-        case "viernes":
-          dato = "Horarios  &  Colegios:\n\n10:00 a 11:00   ► N°6\n11:50 a 12:45   ► N°9\n13:00 a 15:00   ► N°18\n18:15 a 19:15   ► N°6\n19:30 a 21:20   ► N°6";
-          break;
-      }
-
-      document.getElementById("resultado").textContent = dato;
-    }
-
-    // Ajustar ancho de todos los botones al más largo
-    const botones = document.querySelectorAll("button");
-    let maxWidth = 0;
-    botones.forEach(btn => {
-      if (btn.offsetWidth > maxWidth) {
-        maxWidth = btn.offsetWidth;
-      }
-    });
-    botones.forEach(btn => btn.style.width = maxWidth + "px");
-	
-	// Detectar día actual automáticamente
-    window.onload = function() {
-      const dias = ["domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
-      const hoy = new Date().getDay();
-      const diaActual = dias[hoy];
-
-      // Solo si es lunes a viernes
-      if (diaActual !== "sabado" && diaActual !== "domingo") {
-        const boton = document.getElementById(diaActual);
-        mostrarDato(diaActual, boton);
-      }
-    };
-  </script>
 <script>
+// 🔹 Función para saber si estás en ese horario
+function esHoraActual(inicio, fin) {
+  const ahora = new Date();
+
+  const [h1, m1] = inicio.split(":").map(Number);
+  const [h2, m2] = fin.split(":").map(Number);
+
+  const inicioMin = h1 * 60 + m1;
+  const finMin = h2 * 60 + m2;
+  const ahoraMin = ahora.getHours() * 60 + ahora.getMinutes();
+
+  return ahoraMin >= inicioMin && ahoraMin <= finMin;
+}
+
+// 🔹 Función principal
+function mostrarDato(dia, boton) {
+
+  const horarios = {
+    lunes: [
+      ["09:40","11:50","N°9"],
+      ["16:00","17:00","N°6"],
+      ["17:30","18:30","N°1"],
+      ["19:30","21:20","N°6"]
+    ],
+    martes: [
+      ["17:30","18:30","N°1"],
+      ["19:20","20:20","N°6"],
+      ["20:25","22:15","N°6"]
+    ],
+    miercoles: [
+      ["13:00","15:00","N°53"],
+      ["15:10","17:30","N°1"],
+      ["19:30","21:20","N°6"]
+    ],
+    jueves: [
+      ["13:00","15:00","N°53"],
+      ["15:10","16:10","N°18"],
+      ["17:30","19:30","N°6"],
+      ["19:30","21:20","N°6"]
+    ],
+    viernes: [
+      ["10:00","11:00","N°6"],
+      ["11:50","12:45","N°9"],
+      ["13:00","15:00","N°18"],
+      ["18:15","19:15","N°6"],
+      ["19:30","21:20","N°6"]
+    ]
+  };
+
+  const botones = document.querySelectorAll("button");
+  botones.forEach(btn => btn.classList.remove("activo"));
+  boton.classList.add("activo");
+
+  let html = "Horarios & Colegios:<br><br>";
+
+  horarios[dia].forEach(h => {
+    const dias = ["domingo","lunes","martes","miercoles","jueves","viernes","sabado"];
+const hoy = new Date().getDay();
+const diaActual = dias[hoy];
+
+// Solo resaltar si es el día actual
+const activa = (dia === diaActual && esHoraActual(h[0], h[1])) 
+  ? "hora-actual" 
+  : "";
+    html += `<div class="${activa}">
+      ${h[0]} a ${h[1]} ► ${h[2]}
+    </div>`;
+  });
+
+  document.getElementById("resultado").innerHTML = html;
+}
+
+// 🔹 Auto detectar día
+window.onload = function() {
+  const dias = ["domingo","lunes","martes","miercoles","jueves","viernes","sabado"];
+  const hoy = new Date().getDay();
+  const diaActual = dias[hoy];
+
+  if (diaActual !== "sabado" && diaActual !== "domingo") {
+    const boton = document.getElementById(diaActual);
+    mostrarDato(diaActual, boton);
+  }
+};
+
+// 🔹 Reloj
 function actualizarReloj() {
   const reloj = document.getElementById('reloj');
   const now = new Date();
@@ -132,14 +163,22 @@ function actualizarReloj() {
   reloj.textContent = `${horas}:${minutos}`;
 }
 
-// Actualizar cada segundo
 setInterval(actualizarReloj, 1000);
-actualizarReloj(); // actualización inmediata al cargar
-</script>
-<script>
+actualizarReloj();
+
+// 🔥 Actualizar resaltado cada minuto
+setInterval(() => {
+  const botonActivo = document.querySelector(".activo");
+  if (botonActivo) {
+    mostrarDato(botonActivo.id, botonActivo);
+  }
+}, 60000);
+
+// 🔹 Service Worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js');
 }
 </script>
+
 </body>
 </html>
