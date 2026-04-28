@@ -1,5 +1,5 @@
 {
-  "name": "Horarios",
+  "name": "notas-app",
   "short_name": "Horarios",
   "start_url": "./index.html",
   "display": "standalone",
