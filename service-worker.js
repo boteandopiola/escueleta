@@ -1,4 +1,4 @@
-const CACHE_NAME = "notas-app";
+const CACHE_NAME = "Horarios";
 const urlsToCache = [
   "./",
   "./index.html"
